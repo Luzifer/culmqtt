@@ -61,6 +61,13 @@ func main() {
 	// Make sure to close it later.
 	defer port.Close()
 
+	// Send initialization for the CUL
+	// TODO: This might be useful to be configurable?
+	fmt.Fprintln(port, "X21") // Turn on echoing of received messages
+	fmt.Fprintln(port, "Ax")  // reset AskSin
+	fmt.Fprintln(port, "Zx")  // reset Moritz
+	fmt.Fprintln(port, "brx") // reset WMBus
+
 	for {
 		scanner := bufio.NewScanner(port)
 		for scanner.Scan() {
