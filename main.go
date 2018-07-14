@@ -63,10 +63,10 @@ func main() {
 
 	// Send initialization for the CUL
 	// TODO: This might be useful to be configurable?
-	fmt.Fprintln(port, "X21") // Turn on echoing of received messages
 	fmt.Fprintln(port, "Ax")  // reset AskSin
 	fmt.Fprintln(port, "Zx")  // reset Moritz
 	fmt.Fprintln(port, "brx") // reset WMBus
+	fmt.Fprintln(port, "X21") // Turn on echoing of received messages
 
 	for {
 		scanner := bufio.NewScanner(port)
