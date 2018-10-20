@@ -81,6 +81,10 @@ func main() {
 func processMessage(message string) error {
 	logger := log.WithField("message", message)
 
+	if message == "" {
+		return nil
+	}
+
 	switch message[0] {
 	case 'F':
 		return processFS20Message(
