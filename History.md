@@ -1,3 +1,7 @@
+# 0.1.3 / 2018-10-20
+
+  * Check for empty messages
+
 # 0.1.2 / 2018-07-14
 
   * Fix: Write init after reset
