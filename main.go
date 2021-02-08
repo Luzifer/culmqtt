@@ -6,18 +6,18 @@ import (
 	"io"
 	"os"
 
-	"github.com/Luzifer/rconfig"
+	"github.com/Luzifer/rconfig/v2"
 	"github.com/jacobsa/go-serial/serial"
 	log "github.com/sirupsen/logrus"
 )
 
 var (
 	cfg = struct {
-		CULDevice      string `flag:"cul-device" default:"/dev/ttyACM0" env:"CUL_DEVICE" description:"TTY of the CUL to connect to"`
+		CULDevice      string `flag:"cul-device" default:"/dev/ttyACM0" description:"TTY of the CUL to connect to"`
 		LogLevel       string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
-		MQTTHost       string `flag:"mqtt-host" default:"tcp://127.0.0.1:1883" env:"MQTT_HOST" description:"Connection URI for the broker"`
-		MQTTUser       string `flag:"mqtt-user" default:"" env:"MQTT_USER" description:"Username for broker connection"`
-		MQTTPass       string `flag:"mqtt-pass" default:"" env:"MQTT_PASS" description:"Password for broker connection"`
+		MQTTHost       string `flag:"mqtt-host" default:"tcp://127.0.0.1:1883" description:"Connection URI for the broker"`
+		MQTTUser       string `flag:"mqtt-user" default:"" description:"Username for broker connection"`
+		MQTTPass       string `flag:"mqtt-pass" default:"" description:"Password for broker connection"`
 		VersionAndExit bool   `flag:"version" default:"false" description:"Prints current version and exits"`
 	}{}
 
@@ -27,6 +27,7 @@ var (
 )
 
 func init() {
+	rconfig.AutoEnv(true)
 	if err := rconfig.ParseAndValidate(&cfg); err != nil {
 		log.Fatalf("Unable to parse commandline options: %s", err)
 	}
