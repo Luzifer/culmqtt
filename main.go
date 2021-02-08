@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 
 	"github.com/Luzifer/rconfig/v2"
 	"github.com/jacobsa/go-serial/serial"
@@ -13,12 +14,13 @@ import (
 
 var (
 	cfg = struct {
-		CULDevice      string `flag:"cul-device" default:"/dev/ttyACM0" description:"TTY of the CUL to connect to"`
-		LogLevel       string `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
-		MQTTHost       string `flag:"mqtt-host" default:"tcp://127.0.0.1:1883" description:"Connection URI for the broker"`
-		MQTTUser       string `flag:"mqtt-user" default:"" description:"Username for broker connection"`
-		MQTTPass       string `flag:"mqtt-pass" default:"" description:"Password for broker connection"`
-		VersionAndExit bool   `flag:"version" default:"false" description:"Prints current version and exits"`
+		CULDevice      string        `flag:"cul-device" default:"/dev/ttyACM0" description:"TTY of the CUL to connect to"`
+		LogLevel       string        `flag:"log-level" default:"info" description:"Log level (debug, info, warn, error, fatal)"`
+		MQTTHost       string        `flag:"mqtt-host" default:"tcp://127.0.0.1:1883" description:"Connection URI for the broker"`
+		MQTTUser       string        `flag:"mqtt-user" default:"" description:"Username for broker connection"`
+		MQTTPass       string        `flag:"mqtt-pass" default:"" description:"Password for broker connection"`
+		MQTTTimeout    time.Duration `flag:"mqtt-timeout" default:"2s" description:"Timeout for MQTT actions"`
+		VersionAndExit bool          `flag:"version" default:"false" description:"Prints current version and exits"`
 	}{}
 
 	port io.ReadWriteCloser

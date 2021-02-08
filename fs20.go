@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -34,13 +35,13 @@ func publishFS20ToCUL(client mqtt.Client, msg mqtt.Message) {
 }
 
 func publishFS20ToMQTT(housecode, device, command string) error {
-	tok := brokerClient.Publish(
-		strings.Join([]string{"culmqtt", fmt.Sprintf("%s%s", housecode, device), "state"}, "/"),
-		0x01, // QOS Level 1: At least once
-		true,
-		command,
+	return errors.Wrap(
+		mqttTokToErr(brokerClient.Publish(
+			strings.Join([]string{"culmqtt", fmt.Sprintf("%s%s", housecode, device), "state"}, "/"),
+			0x01, // QOS Level 1: At least once
+			true,
+			command,
+		)),
+		"publishing message",
 	)
-
-	tok.Wait()
-	return tok.Error()
 }
