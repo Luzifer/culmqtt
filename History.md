@@ -1,3 +1,9 @@
+# 0.1.4 / 2021-02-09
+
+  * Properly check for errors
+  * Add go modules
+  * Remove Gopkg vendoring
+
 # 0.1.3 / 2018-10-20
 
   * Check for empty messages
